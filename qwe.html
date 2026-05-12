@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Laptop UI</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: black;
+}
+
+/* LOCK SCREEN */
+#lockScreen {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1e1e2f, #3a3a5f);
+}
+
+.lock-box {
+    text-align: center;
+}
+
+input {
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+
+button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    background: #00aaff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* DESKTOP */
+#desktop {
+    display: none;
+    height: 100vh;
+    background: url('bgphone.png');
+    background-size: cover;
+}
+
+/* APPS */
+.apps {
+    display: grid;
+    grid-template-columns: repeat(1, 80px);
+    gap: 20px;
+    padding: 20px;
+}
+
+.app {
+    text-align: center;
+    cursor: pointer;
+    color: white;
+}
+
+.icon {
+    font-size: 40px;
+    background:transparent;
+    border-radius: 15px;
+    padding: 10px;
+}
+img{
+    width:52px ;
+    height:40px ;
+    justify-content: center;
+    margin-top:10px ;
+}
+.qwe{
+    margin-bottom:7px ;
+} 
+.ysah{
+       width:40px ;
+    height:40px ;
+    justify-content: center;
+    margin-top:10px ;
+}
+.icon:hover{
+background-color: rgba(75, 74, 74, 0.297);
+}
+/* TASKBAR STYLE */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 55px;
+    background: rgba(30, 30, 30, 0.85);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    color: white;
+}
+
+/* LEFT SIDE ICONS */
+.taskbar-left {
+    display: flex;
+    gap: 15px;
+}
+
+.task-icon {
+    font-size: 22px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.task-icon:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* RIGHT SIDE */
+.taskbar-right {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 13px;
+    margin-left:1045px;
+}
+.uuoo{
+width:80px ;
+height:50px ;
+}
+.uuoo:hover{
+    background: #7a7a7a22;
+    border-radius:7px ;
+}
+.uuuooo:hover{
+    background: #7a7a7a22;
+    border-radius:7px ;
+}
+.uuuooo{
+width:80px ;
+height:50px ;
+margin-top:10px ;
+}
+.yuio{
+    margin-top:50px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lockScreen">
+    <div class="lock-box">
+        <h2 style="color:white;">Enter Password</h2>
+        <input type="password" id="password" placeholder="Password">
+        <br>
+        <button onclick="unlock()">Unlock</button>
+        <p id="error" style="color:red;"></p>
+    </div>
+</div>
+
+<!-- DESKTOP -->
+<div id="desktop">
+    <div class="apps">
+
+        <div class="app" onclick="openApp('https://www.google.com')">
+            <div class="icon"><img src="chm.png" class="ysah"> </div>
+            Browser
+        </div>
+
+        <div class="app" onclick="openApp('https://www.youtube.com')">
+            <div class="icon"><img src="yot.png"></div>
+            YouTube
+        </div>
+
+        <div class="app" onclick="openApp('camera.html')">
+            <div class="icon"><div class="qwe">📸</div></div>
+            Camera
+        </div>
+
+        <div class="app" onclick="openApp('https://mail.google.com')">
+            <div class="icon"><img src="mail.png" class="ysah"></div>
+            Gmail
+        </div>
+
+    </div>
+</div>
+<!-- TASKBAR -->
+<div class="taskbar">
+
+   
+     
+
+    <div class="taskbar-right">
+        <span>ENG<br> IN</span>
+        <img src="qwer.png" class="uuoo">
+     <div class="clock" id="time"></div>
+     <br>
+<div class="date" id="date" class="yuio"></div>
+         
+    </div>
+
+</div>
+<script>
+
+/* PASSWORD CHECK */
+function unlock() {
+    let pass = document.getElementById("password").value;
+
+    if (pass === "yash123$") {
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("desktop").style.display = "block";
+    } else {
+        document.getElementById("error").innerText = "Wrong Password!";
+    }
+}
+
+/* OPEN WEBSITE */
+function openApp(url) {
+    window.open(url, "_blank");
+}
+function updateDateTime() {
+    let now = new Date();
+
+    // TIME (12 hour format)
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    hours = String(hours).padStart(2, '0');
+    minutes = String(minutes).padStart(2, '0');
+
+    let time = hours + ":" + minutes + " " + ampm;
+
+    // DATE (DD-MM-YYYY)
+    let day = String(now.getDate()).padStart(2, '0');
+    let month = String(now.getMonth() + 1).padStart(2, '0');
+    let year = now.getFullYear();
+
+    let date = day + "-" + month + "-" + year;
+
+    // Display
+    document.getElementById("time").innerText = time;
+    document.getElementById("date").innerText = date;
+}
+
+// Update every second
+setInterval(updateDateTime, 1000);
+updateDateTime();
+</script>
+
+</body>
+</html>

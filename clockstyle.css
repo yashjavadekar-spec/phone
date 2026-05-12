@@ -1,0 +1,172 @@
+/* ===== MODERN GLASSMORPHISM DIGITAL CLOCK ===== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(
+        135deg,
+        #0f172a,
+        #111827,
+        #1e293b
+    );
+    overflow: hidden;
+}
+
+/* BACKGROUND GLOW */
+body::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: #00d9ff;
+    border-radius: 50%;
+    filter: blur(180px);
+    opacity: 0.25;
+    top: 10%;
+    left: 15%;
+}
+
+body::after {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: #7c3aed;
+    border-radius: 50%;
+    filter: blur(180px);
+    opacity: 0.2;
+    bottom: 10%;
+    right: 10%;
+}
+
+/* MAIN CLOCK BOX */
+.container {
+    width: 1000px;
+    max-width: 92%;
+    padding: 45px;
+    border-radius: 30px;
+    position: relative;
+    z-index: 2;
+
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* CLOCK LAYOUT */
+.clock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 45px;
+}
+
+/* EACH BLOCK */
+.time-box {
+    text-align: center;
+    min-width: 180px;
+}
+
+/* BIG NUMBERS */
+.time-box h1 {
+    font-size: 110px;
+    font-weight: 700;
+    line-height: 1;
+    color: #ffffff;
+    letter-spacing: 3px;
+
+    text-shadow:
+        0 0 10px rgba(0,217,255,0.35);
+}
+
+/* LABELS */
+.time-box p {
+    margin-top: 15px;
+    font-size: 16px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+}
+
+/* COLON */
+.colon {
+    font-size: 95px;
+    font-weight: bold;
+    color: #00d9ff;
+
+    text-shadow:
+        0 0 12px rgba(0,217,255,0.5);
+}
+
+/* AM PM */
+.ampm {
+    font-size: 28px;
+    font-weight: 600;
+    color: #00d9ff;
+    align-self: flex-end;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+       text-shadow:
+        0 0 12px rgba(255, 255, 255, 0.5);
+}
+
+/* SOFT FLOAT ANIMATION */
+.container {
+    animation: floatBox 4s ease-in-out infinite;
+}
+
+@keyframes floatBox {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .clock {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .time-box h1 {
+        font-size: 70px;
+    }
+
+    .colon {
+        font-size: 55px;
+    }
+
+    .ampm {
+        font-size: 22px;
+    }
+
+    .time-box p {
+        font-size: 13px;
+    }
+
+    .container {
+        padding: 30px 20px;
+    }
+}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day/Night Digital Clock</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Orbitron', sans-serif;
+    background:#050816;
+    transition:0.5s;
+    overflow:hidden;
+}
+
+/* NIGHT MODE */
+body.night{
+    background:linear-gradient(135deg,#050816,#290654,#041ae4);;
+    color:white;
+}
+
+/* DAY MODE */
+body.day{
+    background:linear-gradient(90deg,#f4fe68,#ffffff,#4f6783);
+    color:#111;
+}
+
+/* CLOCK BOX */
+.container{
+    width:1000px;
+    max-width:92%;
+    padding:50px 40px;
+    border-radius:30px;
+    text-align:center;
+    backdrop-filter:blur(20px);
+    transition:0.5s;
+}
+
+/* NIGHT STYLE */
+body.night .container{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    box-shadow:0 20px 80px rgba(0,0,0,0.4);
+}
+
+/* DAY STYLE */
+body.day .container{
+    background:rgba(255,255,255,0.7);
+    border:1px solid rgba(0, 0, 0, 0.6);
+    box-shadow:0 90px 90px rgba(0,0,4,0.1);
+}
+
+/* CLOCK */
+.clock{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    flex-wrap:wrap;
+}
+
+.time-box h1{
+    font-size:110px;
+    font-weight:700;
+}
+
+.time-box p{
+    margin-top:10px;
+    font-size:16px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+
+.colon{
+    font-size:90px;
+    font-weight:bold;
+}
+
+.ampm{
+    font-size:30px;
+    font-weight:600;
+    margin-top:40px;
+}
+
+/* BUTTON */
+.toggle-btn{
+    margin-top:40px;
+    padding:15px 35px;
+    font-size:18px;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.4s;
+}
+
+/* NIGHT BUTTON */
+body.night .toggle-btn{
+    background:#07011b;
+    color:#ffffff;
+    box-shadow:0 0 20px rgb(120, 242, 255);
+}
+
+/* DAY BUTTON */
+body.day .toggle-btn{
+    background:#111;
+    color:#fff;
+    box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+.toggle-btn:hover{
+    transform:scale(1.05);
+}
+
+@media(max-width:768px){
+    .time-box h1{
+        font-size:70px;
+    }
+
+    .colon{
+        font-size:55px;
+    }
+
+    .ampm{
+        font-size:22px;
+    }
+}
+</style>
+</head>
+<body class="night">
+
+<div class="container">
+
+    <div class="clock">
+
+        <div class="time-box">
+            <h1 id="hrs">00</h1>
+            <p>Hours</p>
+        </div>
+
+        <div class="colon">:</div>
+
+        <div class="time-box">
+            <h1 id="min">00</h1>
+            <p>Minutes</p>
+        </div>
+
+        <div class="colon">:</div>
+
+        <div class="time-box">
+            <h1 id="sec">00</h1>
+            <p>Seconds</p>
+        </div>
+
+        <div class="ampm" id="ampm">AM</div>
+
+    </div>
+    <br><br>
+<hr>
+    <button class="toggle-btn" onclick="toggleMode()">
+        Switch Mode
+    </button>
+
+</div>
+
+<script>
+function updateClock(){
+    let now = new Date();
+
+    let h = now.getHours();
+    let m = now.getMinutes();
+    let s = now.getSeconds();
+    let ap = "AM";
+
+    if(h >= 12){
+        ap = "PM";
+    }
+
+    if(h > 12){
+        h = h - 12;
+    }
+
+    if(h == 0){
+        h = 12;
+    }
+
+    h = h < 10 ? "0" + h : h;
+    m = m < 10 ? "0" + m : m;
+    s = s < 10 ? "0" + s : s;
+
+    document.getElementById("hrs").innerHTML = h;
+    document.getElementById("min").innerHTML = m;
+    document.getElementById("sec").innerHTML = s;
+    document.getElementById("ampm").innerHTML = ap;
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+/* DAY / NIGHT BUTTON */
+function toggleMode(){
+    document.body.classList.toggle("day");
+    document.body.classList.toggle("night");
+}
+</script>
+
+</body>
+</html>
